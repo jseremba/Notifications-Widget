@@ -44,34 +44,34 @@ require({}, [
         // Declare widget's prototype.
     return declare("NotificationsWidget.widget.NotificationsWidget", [ _WidgetBase ], {
 
-            // Parameters configured in the Modeler.
-            // mfToExecute: "",
-            // messageString: "",
-            // backgroundColor: "",
+        // Parameters configured in the Modeler.
+        // mfToExecute: "",
+        // messageString: "",
+        // backgroundColor: "",
         _notificationCount: null,
 
-            // Internal variables. Non-primitives created in the prototype are shared between all widget instances.
+        // Internal variables. Non-primitives created in the prototype are shared between all widget instances.
         _handle: null,
         _contextObj: null,
         _objProperty: null,
 
-            // dojo.declare.constructor is called to construct the widget instance. Implement to initialize non-primitive properties.
+        // dojo.declare.constructor is called to construct the widget instance. Implement to initialize non-primitive properties.
         constructor: function() {
-                // this._objProperty = {};
+            // this._objProperty = {};
         },
 
-            // dijit._WidgetBase.postCreate is called after constructing the widget. Implement to do extra setup work.
+        // dijit._WidgetBase.postCreate is called after constructing the widget. Implement to do extra setup work.
         postCreate: function() {
-            console.log(this.id + ".postCreate");
+            logger.debug(this.id + ".postCreate");
 
-                // this.domNode.appendChild(dom.create('span', { 'class': 'notificationswidget-message' }, 'internal property as constant: ' + this.messageString));
+            // this.domNode.appendChild(dom.create('span', { 'class': 'notificationswidget-message' }, 'internal property as constant: ' + this.messageString));
             this.domNode.title = this.tooltipCaption;
             this._setupEvents();
         },
 
-            // mxui.widget._WidgetBase.update is called when context is changed or initialized. Implement to re-render and / or fetch data.
+        // mxui.widget._WidgetBase.update is called when context is changed or initialized. Implement to re-render and / or fetch data.
         update: function(obj, callback) {
-            console.log(this.id + ".update");
+            logger.debug(this.id + ".update");
 
             this._contextObj = obj;
             this._resetSubscriptions();
@@ -80,9 +80,9 @@ require({}, [
             callback();
         },
 
-            // mxui.widget._WidgetBase.uninitialize is called when the widget is destroyed. Implement to do special tear-down work.
+        // mxui.widget._WidgetBase.uninitialize is called when the widget is destroyed. Implement to do special tear-down work.
         uninitialize: function() {
-                // Clean up listeners, helper objects, etc. There is no need to remove listeners added with this.connect / this.subscribe / this.own.
+        // Clean up listeners, helper objects, etc. There is no need to remove listeners added with this.connect / this.subscribe / this.own.
         },
 
         _setupEvents: function() {
@@ -97,7 +97,7 @@ require({}, [
                         // TODO what to do when all is ok!
                     },
                     error: function(error) {
-                        console.log(this.id + ": An error occurred while executing microflow: " + error.description);
+                        logger.debug(this.id + ": An error occurred while executing microflow: " + error.description);
                     }
                 }, this);
             });
@@ -135,7 +135,7 @@ require({}, [
         },
 
         _getNotificationCount: function() {
-                // Fetch Notification count by microflow
+            // Fetch Notification count by microflow
             var self = this;
 
             mx.data.action({
@@ -148,13 +148,13 @@ require({}, [
                     self._updateRendering();
                 },
                 error: function(error) {
-                    console.log(this.id + ": An error occurred while executing microflow: " + error.description);
+                    logger.debug(this.id + ": An error occurred while executing microflow: " + error.description);
                 }
             });
         },
 
         _resetSubscriptions: function() {
-                // Release handle on previous object, if any.
+            // Release handle on previous object, if any.
             if (this._handle) {
                 this.unsubscribe(this._handle);
                 this._handle = null;
