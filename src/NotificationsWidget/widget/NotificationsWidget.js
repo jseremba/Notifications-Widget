@@ -21,7 +21,7 @@
 */
 
 // Required module list. Remove unnecessary modules, you can always get them back from the boilerplate.
-require({}, [
+define([
     "dojo/_base/declare",
     "mxui/widget/_WidgetBase",
     "mxui/dom",
@@ -34,11 +34,12 @@ require({}, [
     "dojo/dom-construct",
     "dojo/_base/array",
     "dojo/_base/lang",
-    "dojo/text"
+    "dojo/text",
+    "dojo/html"
 ], function(declare, _WidgetBase, dom,
     dojoDom, domQuery, domProp,
     domGeom, domClass, domStyle,
-    domConstruct, dojoArray, lang, dojoText) {
+    domConstruct, dojoArray, lang, dojoText, html) {
     "use strict";
 
         // Declare widget's prototype.
@@ -169,3 +170,5 @@ require({}, [
         }
     });
 });
+
+require([ "NotificationsWidget/widget/NotificationsWidget" ]);
