@@ -21,12 +21,12 @@
 */
 
 // Required module list. Remove unnecessary modules, you can always get them back from the boilerplate.
-require({}, [
+define([
     "dojo/_base/declare",
     "mxui/widget/_WidgetBase",
+
     "mxui/dom",
     "dojo/dom",
-    "dojo/query",
     "dojo/dom-prop",
     "dojo/dom-geometry",
     "dojo/dom-class",
@@ -34,30 +34,26 @@ require({}, [
     "dojo/dom-construct",
     "dojo/_base/array",
     "dojo/_base/lang",
-    "dojo/text"
-], function(declare, _WidgetBase, dom,
-    dojoDom, domQuery, domProp,
-    domGeom, domClass, domStyle,
-    domConstruct, dojoArray, lang, dojoText) {
+    "dojo/text",
+    "dojo/_base/event",
+    "dojo/dom-attr"
+], function(declare, _WidgetBase,
+    dom, dojoDom, dojoProp, dojoGeometry,
+    dojoClass, dojoStyle, dojoConstruct, dojoArray, dojoLang, dojoText5, dojoEvent, domAttr) {
     "use strict";
 
-        // Declare widget's prototype.
+    // Declare widget's prototype.
     return declare("NotificationsWidget.widget.NotificationsWidget", [ _WidgetBase ], {
 
-        // Parameters configured in the Modeler.
-        // mfToExecute: "",
-        // messageString: "",
-        // backgroundColor: "",
-        _notificationCount: null,
-
         // Internal variables. Non-primitives created in the prototype are shared between all widget instances.
-        _handle: null,
+        _handles: null,
         _contextObj: null,
-        _objProperty: null,
+        _alertDiv: null,
+        _readOnly: false,
 
         // dojo.declare.constructor is called to construct the widget instance. Implement to initialize non-primitive properties.
         constructor: function() {
-            // this._objProperty = {};
+            logger.debug(this.id + ".constructor");
         },
 
         // dijit._WidgetBase.postCreate is called after constructing the widget. Implement to do extra setup work.
@@ -82,7 +78,8 @@ require({}, [
 
         // mxui.widget._WidgetBase.uninitialize is called when the widget is destroyed. Implement to do special tear-down work.
         uninitialize: function() {
-        // Clean up listeners, helper objects, etc. There is no need to remove listeners added with this.connect / this.subscribe / this.own.
+            logger.debug(this.id + ".uninitialize");
+            // Clean up listeners, helper objects, etc. There is no need to remove listeners added with this.connect / this.subscribe / this.own.
         },
 
         _setupEvents: function() {
@@ -93,7 +90,7 @@ require({}, [
                         actionname: this.actionMicroflow,
                         guids: [ this._contextObj.getGuid() ]
                     },
-                    callback: function(obj) {
+                    callback: function() {
                         // TODO what to do when all is ok!
                     },
                     error: function(error) {
@@ -107,6 +104,7 @@ require({}, [
             this._getNotificationCount();
         },
 
+        // Rerender the interface.
         _updateRendering: function() {
             // Update Notification counter
 
@@ -118,19 +116,19 @@ require({}, [
 
                 if (this._notificationCount > 0) {
                     mxui.dom.html(this.counterNode, this._notificationCount);
-                    dojo.addClass(this.counterNode, "NotificationCenter-hasnewmessages");
+                    dojoClass.addClass(this.counterNode, "NotificationCenter-hasnewmessages");
                 } else {
-                    dojo.removeClass(this.counterNode, "NotificationCenter-hasnewmessages");
+                    dojoClass.removeClass(this.counterNode, "NotificationCenter-hasnewmessages");
                 }
 
                 this.imgNode = mxui.dom.a({ class: "" }, this.counterNode);
                 this.domNode.appendChild(this.imgNode);
-                dojo.attr(this.imgNode, "class", "");
+                domAttr.attr(this.imgNode, "class", "");
             } else if (this._notificationCount > 0) {
                 mxui.dom.html(this.counterNode, this._notificationCount);
-                dojo.addClass(this.counterNode, "NotificationCenter-hasnewmessages");
+                dojoClass.addClass(this.counterNode, "NotificationCenter-hasnewmessages");
             } else {
-                dojo.removeClass(this.counterNode, "NotificationCenter-hasnewmessages");
+                dojoClass.removeClass(this.counterNode, "NotificationCenter-hasnewmessages");
             }
         },
 
@@ -153,7 +151,9 @@ require({}, [
             });
         },
 
+        // Reset subscriptions.
         _resetSubscriptions: function() {
+            logger.debug(this.id + "._resetSubscriptions");
             // Release handle on previous object, if any.
             if (this._handle) {
                 this.unsubscribe(this._handle);
@@ -169,3 +169,5 @@ require({}, [
         }
     });
 });
+
+require([ "NotificationsWidget/widget/NotificationsWidget" ]);

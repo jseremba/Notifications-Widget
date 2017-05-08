@@ -6,7 +6,7 @@
 }
 
 .NotificationCenter {
-    background-image : url("NotificationsWidget/widget/ui/envelop.png") !important;
+    background-image : url("Notifications/widget/ui/envelop.png") !important;
     background-repeat: no-repeat;
     cursor: pointer;
     height:16px;
