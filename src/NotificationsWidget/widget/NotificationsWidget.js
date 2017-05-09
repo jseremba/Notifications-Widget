@@ -55,7 +55,6 @@ function(declare, _WidgetBase) {
                             guids: [ this._contextObj.getGuid() ]
                         },
                         callback: function(obj) {
-                            console.log("I have been clicked!");
                         },
                         error: function(error) {
                             console.log(this.id + ": An error occurred while executing microflow: " + error.description);
@@ -72,7 +71,7 @@ function(declare, _WidgetBase) {
         _updateRendering: function() {
             // Update Notification counter
             if (this.counterNode == null) {
-                this.counterNode = mxui.dom.div({
+                this.counterNode = mxui.dom.create("div", {
                     "class": "NotificationCenter-counter"
                 });
 
@@ -83,7 +82,7 @@ function(declare, _WidgetBase) {
                     dojo.removeClass(this.counterNode, "NotificationCenter-hasnewmessages");
                 }
 
-                this.imgNode = mxui.dom.a({ "class": "" }, this.counterNode);
+                this.imgNode = mxui.dom.create("a", { "class": "" }, this.counterNode);
                 this.domNode.appendChild(this.imgNode);
                 dojo.attr(this.imgNode, "class", "");
             } else {
