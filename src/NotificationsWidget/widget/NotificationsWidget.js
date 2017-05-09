@@ -45,9 +45,6 @@ define([
     return declare("NotificationsWidget.widget.NotificationsWidget", [ _WidgetBase ], {
 
             // Parameters configured in the Modeler.
-            // mfToExecute: "",
-            // messageString: "",
-            // backgroundColor: "",
         _notificationCount: null,
 
             // Internal variables. Non-primitives created in the prototype are shared between all widget instances.
@@ -55,16 +52,9 @@ define([
         _contextObj: null,
         _objProperty: null,
 
-            // dojo.declare.constructor is called to construct the widget instance. Implement to initialize non-primitive properties.
-        constructor: function() {
-                // this._objProperty = {};
-        },
-
             // dijit._WidgetBase.postCreate is called after constructing the widget. Implement to do extra setup work.
         postCreate: function() {
             console.log(this.id + ".postCreate");
-
-                // this.domNode.appendChild(dom.create('span', { 'class': 'notificationswidget-message' }, 'internal property as constant: ' + this.messageString));
             this.domNode.title = this.tooltipCaption;
             this._setupEvents();
         },
@@ -78,11 +68,6 @@ define([
             this._updateCounter();
 
             callback();
-        },
-
-            // mxui.widget._WidgetBase.uninitialize is called when the widget is destroyed. Implement to do special tear-down work.
-        uninitialize: function() {
-                // Clean up listeners, helper objects, etc. There is no need to remove listeners added with this.connect / this.subscribe / this.own.
         },
 
         _setupEvents: function() {
