@@ -34,32 +34,35 @@ function(declare, _WidgetBase) {
 
         postCreate: function() {
             this.domNode.title = this.tooltipCaption;
-            this._setupEvents();
         },
 
         update: function(obj, callback) {
             this._contextObj = obj;
             this._resetSubscriptions();
             this._updateCounter();
-
+            this._setupEvents();
             callback();
         },
 
         _setupEvents: function() {
-            this.connect(this.domNode, "click", function() {
-                mx.data.action({
-                    params: {
-                        applyto: "selection",
-                        actionname: this.actionMicroflow,
-                        guids: [ this._contextObj.getGuid() ]
-                    },
-                    callback: function(obj) {
-                    },
-                    error: function(error) {
-                        console.log(this.id + ": An error occurred while executing microflow: " + error.description);
-                    }
-                }, this);
-            });
+            if (this._contextObj){
+                console.log("Setting up events");
+                this.connect(this.domNode, "click", function() {
+                    mx.data.action({
+                        params: {
+                            applyto: "selection",
+                            actionname: this.actionMicroflow,
+                            guids: [ this._contextObj.getGuid() ]
+                        },
+                        callback: function(obj) {
+                            console.log("I have been clicked!");
+                        },
+                        error: function(error) {
+                            console.log(this.id + ": An error occurred while executing microflow: " + error.description);
+                        }
+                    }, this);
+                });
+            }
         },
 
         _updateCounter: function() {
