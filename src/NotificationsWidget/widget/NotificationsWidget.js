@@ -20,10 +20,8 @@
     Changes: Widget now only shows the amount of notifications if there are any. So '0' will no longer be presented.
 */
 
-define([
-    "dojo/_base/declare",
-    "mxui/widget/_WidgetBase"
-], function(declare, _WidgetBase) {
+define([ "dojo/_base/declare", "mxui/widget/_WidgetBase" ], 
+function(declare, _WidgetBase) {
     "use strict";
 
     return declare("NotificationsWidget.widget.NotificationsWidget", [ _WidgetBase ], {
@@ -35,14 +33,11 @@ define([
         _objProperty: null,
 
         postCreate: function() {
-            console.log(this.id + ".postCreate");
             this.domNode.title = this.tooltipCaption;
             this._setupEvents();
         },
 
         update: function(obj, callback) {
-            console.log(this.id + ".update");
-
             this._contextObj = obj;
             this._resetSubscriptions();
             this._updateCounter();
@@ -73,7 +68,6 @@ define([
 
         _updateRendering: function() {
             // Update Notification counter
-
             if (this.counterNode == null) {
                 this.counterNode = mxui.dom.div({
                     "class": "NotificationCenter-counter"
@@ -119,7 +113,6 @@ define([
         },
 
         _resetSubscriptions: function() {
-                // Release handle on previous object, if any.
             if (this._handle) {
                 this.unsubscribe(this._handle);
                 this._handle = null;
