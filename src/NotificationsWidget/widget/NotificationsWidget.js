@@ -34,12 +34,11 @@ define([
     "dojo/dom-construct",
     "dojo/_base/array",
     "dojo/_base/lang",
-    "dojo/text",
-    "dojo/html"
+    "dojo/text"
 ], function(declare, _WidgetBase, dom,
     dojoDom, domQuery, domProp,
     domGeom, domClass, domStyle,
-    domConstruct, dojoArray, lang, dojoText, html) {
+    domConstruct, dojoArray, lang, text) {
     "use strict";
 
         // Declare widget's prototype.
@@ -111,10 +110,10 @@ define([
         _updateRendering: function() {
             // Update Notification counter
 
-            if (this.counterNode === null) {
+            if (this.counterNode == null) {
                 // this.connect(this.domNode, 'onclick', dojo.hitch(this, this.execaction, this.microflow));
                 this.counterNode = mxui.dom.div({
-                    class: "NotificationCenter-counter"
+                    "class": "NotificationCenter-counter"
                 });
 
                 if (this._notificationCount > 0) {
@@ -124,14 +123,16 @@ define([
                     dojo.removeClass(this.counterNode, "NotificationCenter-hasnewmessages");
                 }
 
-                this.imgNode = mxui.dom.a({ class: "" }, this.counterNode);
+                this.imgNode = mxui.dom.a({ "class": "" }, this.counterNode);
                 this.domNode.appendChild(this.imgNode);
                 dojo.attr(this.imgNode, "class", "");
-            } else if (this._notificationCount > 0) {
-                mxui.dom.html(this.counterNode, this._notificationCount);
-                dojo.addClass(this.counterNode, "NotificationCenter-hasnewmessages");
             } else {
-                dojo.removeClass(this.counterNode, "NotificationCenter-hasnewmessages");
+                if (this._notificationCount > 0) {
+                    mxui.dom.html(this.counterNode, this._notificationCount);
+                    dojo.addClass(this.counterNode, "NotificationCenter-hasnewmessages");
+                } else {
+                    dojo.removeClass(this.counterNode, "NotificationCenter-hasnewmessages");
+                }
             }
         },
 
