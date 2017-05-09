@@ -20,8 +20,8 @@
     Changes: Widget now only shows the amount of notifications if there are any. So '0' will no longer be presented.
 */
 
-define([ "dojo/_base/declare", "mxui/widget/_WidgetBase" ], 
-function(declare, _WidgetBase) {
+define([ "dojo/_base/declare", "mxui/widget/_WidgetBase", "dojo/dom-class" ], 
+function(declare, _WidgetBase, domClass) {
     "use strict";
 
     return declare("NotificationsWidget.widget.NotificationsWidget", [ _WidgetBase ], {
@@ -45,8 +45,8 @@ function(declare, _WidgetBase) {
         },
 
         _setupEvents: function() {
+            var self = this;
             if (this._contextObj){
-                console.log("Setting up events");
                 this.connect(this.domNode, "click", function() {
                     mx.data.action({
                         params: {
@@ -57,7 +57,7 @@ function(declare, _WidgetBase) {
                         callback: function(obj) {
                         },
                         error: function(error) {
-                            console.log(this.id + ": An error occurred while executing microflow: " + error.description);
+                            console.log(self.id + ": An error occurred while executing microflow: " + error.description);
                         }
                     }, this);
                 });
@@ -77,9 +77,9 @@ function(declare, _WidgetBase) {
 
                 if (this._notificationCount > 0) {
                     mxui.dom.html(this.counterNode, this._notificationCount);
-                    dojo.addClass(this.counterNode, "NotificationCenter-hasnewmessages");
+                    domClass.add(this.counterNode, "NotificationCenter-hasnewmessages");
                 } else {
-                    dojo.removeClass(this.counterNode, "NotificationCenter-hasnewmessages");
+                    domClass.remove(this.counterNode, "NotificationCenter-hasnewmessages");
                 }
 
                 this.imgNode = mxui.dom.create("a", { "class": "" }, this.counterNode);
@@ -88,9 +88,9 @@ function(declare, _WidgetBase) {
             } else {
                 if (this._notificationCount > 0) {
                     mxui.dom.html(this.counterNode, this._notificationCount);
-                    dojo.addClass(this.counterNode, "NotificationCenter-hasnewmessages");
+                    domClass.add(this.counterNode, "NotificationCenter-hasnewmessages");
                 } else {
-                    dojo.removeClass(this.counterNode, "NotificationCenter-hasnewmessages");
+                    domClass.remove(this.counterNode, "NotificationCenter-hasnewmessages");
                 }
             }
         },
