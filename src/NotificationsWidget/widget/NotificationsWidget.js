@@ -20,8 +20,12 @@
     Changes: Widget now only shows the amount of notifications if there are any. So '0' will no longer be presented.
 */
 
-define([ "dojo/_base/declare", "mxui/widget/_WidgetBase", "dojo/dom-class" ], 
-function(declare, _WidgetBase, domClass) {
+define([ 
+    "dojo/_base/declare", 
+    "mxui/widget/_WidgetBase", 
+    "dojo/dom-class", 
+    "dojo/html" 
+    ], function(declare, _WidgetBase, domClass, html) {
     "use strict";
 
     return declare("NotificationsWidget.widget.NotificationsWidget", [ _WidgetBase ], {
@@ -76,7 +80,7 @@ function(declare, _WidgetBase, domClass) {
                 });
 
                 if (this._notificationCount > 0) {
-                    mxui.dom.html(this.counterNode, this._notificationCount);
+                    html.set(this.counterNode, this._notificationCount);
                     domClass.add(this.counterNode, "NotificationCenter-hasnewmessages");
                 } else {
                     domClass.remove(this.counterNode, "NotificationCenter-hasnewmessages");
@@ -87,7 +91,7 @@ function(declare, _WidgetBase, domClass) {
                 dojo.attr(this.imgNode, "class", "");
             } else {
                 if (this._notificationCount > 0) {
-                    mxui.dom.html(this.counterNode, this._notificationCount);
+                    html.set(this.counterNode, this._notificationCount);
                     domClass.add(this.counterNode, "NotificationCenter-hasnewmessages");
                 } else {
                     domClass.remove(this.counterNode, "NotificationCenter-hasnewmessages");
