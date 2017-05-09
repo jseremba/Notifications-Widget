@@ -96,20 +96,22 @@ function(declare, _WidgetBase) {
         _getNotificationCount: function() {
             // Fetch Notification count by microflow
             var self = this;
-
-            mx.data.action({
-                params: {
-                    actionname: this.counterMicroflow,
-                    guids: [ this._contextObj.getGuid() ]
-                },
-                callback: function(count) {
-                    self._notificationCount = count;
-                    self._updateRendering();
-                },
-                error: function(error) {
-                    console.log(this.id + ": An error occurred while executing microflow: " + error.description);
-                }
-            });
+            if (this._contextObj){
+                mx.data.action({
+                    params: {
+                        applyto: "selection",
+                        actionname: this.counterMicroflow,
+                        guids: [ this._contextObj.getGuid() ]
+                    },
+                    callback: function(count) {
+                        self._notificationCount = count;
+                        self._updateRendering();
+                    },
+                    error: function(error) {
+                        console.log(this.id + ": An error occurred while executing microflow: " + error.description);
+                    }
+                });
+            } 
         },
 
         _resetSubscriptions: function() {
