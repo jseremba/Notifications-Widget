@@ -20,12 +20,12 @@
     Changes: Widget now only shows the amount of notifications if there are any. So '0' will no longer be presented.
 */
 
-define([ 
-    "dojo/_base/declare", 
-    "mxui/widget/_WidgetBase", 
-    "dojo/dom-class", 
-    "dojo/html" 
-    ], function(declare, _WidgetBase, domClass, html) {
+define([
+    "dojo/_base/declare",
+    "mxui/widget/_WidgetBase",
+    "dojo/dom-class",
+    "dojo/html"
+], function(declare, _WidgetBase, domClass, html) {
     "use strict";
 
     return declare("NotificationsWidget.widget.NotificationsWidget", [ _WidgetBase ], {
@@ -50,7 +50,7 @@ define([
 
         _setupEvents: function() {
             var self = this;
-            if (this._contextObj){
+            if (this._contextObj) {
                 this.connect(this.domNode, "click", function() {
                     mx.data.action({
                         params: {
@@ -76,7 +76,7 @@ define([
             // Update Notification counter
             if (this.counterNode == null) {
                 this.counterNode = mxui.dom.create("div", {
-                    "class": "NotificationCenter-counter"
+                    class: "NotificationCenter-counter"
                 });
 
                 if (this._notificationCount > 0) {
@@ -86,23 +86,21 @@ define([
                     domClass.remove(this.counterNode, "NotificationCenter-hasnewmessages");
                 }
 
-                this.imgNode = mxui.dom.create("a", { "class": "" }, this.counterNode);
+                this.imgNode = mxui.dom.create("a", { class: "" }, this.counterNode);
                 this.domNode.appendChild(this.imgNode);
                 dojo.attr(this.imgNode, "class", "");
+            } else if (this._notificationCount > 0) {
+                html.set(this.counterNode, this._notificationCount);
+                domClass.add(this.counterNode, "NotificationCenter-hasnewmessages");
             } else {
-                if (this._notificationCount > 0) {
-                    html.set(this.counterNode, this._notificationCount);
-                    domClass.add(this.counterNode, "NotificationCenter-hasnewmessages");
-                } else {
-                    domClass.remove(this.counterNode, "NotificationCenter-hasnewmessages");
-                }
+                domClass.remove(this.counterNode, "NotificationCenter-hasnewmessages");
             }
         },
 
         _getNotificationCount: function() {
             // Fetch Notification count by microflow
             var self = this;
-            if (this._contextObj){
+            if (this._contextObj) {
                 mx.data.action({
                     params: {
                         applyto: "selection",
@@ -117,7 +115,7 @@ define([
                         console.log(this.id + ": An error occurred while executing microflow: " + error.description);
                     }
                 });
-            } 
+            }
         },
 
         _resetSubscriptions: function() {
