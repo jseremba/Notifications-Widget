@@ -20,46 +20,26 @@
     Changes: Widget now only shows the amount of notifications if there are any. So '0' will no longer be presented.
 */
 
-// Required module list. Remove unnecessary modules, you can always get them back from the boilerplate.
 define([
     "dojo/_base/declare",
-    "mxui/widget/_WidgetBase",
-    "mxui/dom",
-    "dojo/dom",
-    "dojo/query",
-    "dojo/dom-prop",
-    "dojo/dom-geometry",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dojo/dom-construct",
-    "dojo/_base/array",
-    "dojo/_base/lang",
-    "dojo/text"
-], function(declare, _WidgetBase, dom,
-    dojoDom, domQuery, domProp,
-    domGeom, domClass, domStyle,
-    domConstruct, dojoArray, lang, text) {
+    "mxui/widget/_WidgetBase"
+], function(declare, _WidgetBase) {
     "use strict";
 
-        // Declare widget's prototype.
     return declare("NotificationsWidget.widget.NotificationsWidget", [ _WidgetBase ], {
-
-            // Parameters configured in the Modeler.
         _notificationCount: null,
 
-            // Internal variables. Non-primitives created in the prototype are shared between all widget instances.
+        // Internal variables
         _handle: null,
         _contextObj: null,
         _objProperty: null,
 
-            // dijit._WidgetBase.postCreate is called after constructing the widget. Implement to do extra setup work.
         postCreate: function() {
             console.log(this.id + ".postCreate");
             this.domNode.title = this.tooltipCaption;
             this._setupEvents();
         },
 
-            // mxui.widget._WidgetBase.update is called when context is changed or initialized. Implement to re-render and / or fetch data.
         update: function(obj, callback) {
             console.log(this.id + ".update");
 
@@ -79,7 +59,6 @@ define([
                         guids: [ this._contextObj.getGuid() ]
                     },
                     callback: function(obj) {
-                        // TODO what to do when all is ok!
                     },
                     error: function(error) {
                         console.log(this.id + ": An error occurred while executing microflow: " + error.description);
@@ -96,7 +75,6 @@ define([
             // Update Notification counter
 
             if (this.counterNode == null) {
-                // this.connect(this.domNode, 'onclick', dojo.hitch(this, this.execaction, this.microflow));
                 this.counterNode = mxui.dom.div({
                     "class": "NotificationCenter-counter"
                 });
@@ -122,7 +100,7 @@ define([
         },
 
         _getNotificationCount: function() {
-                // Fetch Notification count by microflow
+            // Fetch Notification count by microflow
             var self = this;
 
             mx.data.action({
