@@ -1,23 +1,17 @@
-/* jslint white:true, nomen: true, plusplus: true */
-/* global mx, define, require, console */
-/* mendix */
 /*
     NotificationsWidget
     ========================
 
     @file      : NotificationsWidget.js
-    @version   : 0.1
-    @author    : Nick van Wieren
-    @date      : Wed, 18 Feb 2015 09:35:50 GMT
-    @copyright : 2015
+    @version   : 0.2
+    @author    : Mansystems
     @license   : Apache 2
 
     Documentation
     ========================
     Describe your widget here.
     @version: 0.2
-    @author: Arjan de Lange
-    Changes: Widget now only shows the amount of notifications if there are any. So '0' will no longer be presented.
+    @author: Mansystems
 */
 
 define([
@@ -56,12 +50,13 @@ define([
                         params: {
                             applyto: "selection",
                             actionname: this.actionMicroflow,
-                            guids: [ this._contextObj.getGuid() ]
+                            guids: [ this._contextObj.getGuid() ],
+                            origin: this.mxform
                         },
                         callback: function(obj) {
                         },
                         error: function(error) {
-                            console.log(self.id + ": An error occurred while executing microflow: " + error.description);
+                            mx.ui.error("An error occurred while executing microflow " + this.actionMicroflow + " : " + error.description);
                         }
                     }, this);
                 });
@@ -105,16 +100,17 @@ define([
                     params: {
                         applyto: "selection",
                         actionname: this.counterMicroflow,
-                        guids: [ this._contextObj.getGuid() ]
+                        guids: [ this._contextObj.getGuid() ],
+                        origin: this.mxform
                     },
                     callback: function(count) {
                         self._notificationCount = count;
                         self._updateRendering();
                     },
                     error: function(error) {
-                        console.log(this.id + ": An error occurred while executing microflow: " + error.description);
+                        mx.ui.error("An error occurred while executing microflow " + this.counterMicroflow + " : " + error.description);
                     }
-                });
+                }, this);
             }
         },
 
