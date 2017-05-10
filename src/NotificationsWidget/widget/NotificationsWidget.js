@@ -39,8 +39,8 @@ define([
             this._setupEvents();
         },
 
-        update: function(obj, callback) {
-            this._contextObj = obj;
+        update: function(mxObject, callback) {
+            this._contextObj = mxObject;
             this._resetSubscriptions();
             this._updateCounter();
 
