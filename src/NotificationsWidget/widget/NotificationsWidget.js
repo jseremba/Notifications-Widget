@@ -1,6 +1,3 @@
-/* jslint white:true, nomen: true, plusplus: true */
-/* global mx, define, require, console */
-/* mendix */
 /*
     NotificationsWidget
     ========================
@@ -40,28 +37,31 @@ define([
             this.domNode.title = this.tooltipCaption;
         },
 
-        update: function(obj, callback) {
-            this._contextObj = obj;
+        update: function(mxObject, callback) {
+            this._contextObj = mxObject;
             this._resetSubscriptions();
             this._updateCounter();
             this._setupEvents();
-            callback();
+            if (callback) {
+                callback();
+            }
         },
 
         _setupEvents: function() {
-            var self = this;
             if (this._contextObj) {
                 this.connect(this.domNode, "click", function() {
                     mx.data.action({
                         params: {
                             applyto: "selection",
                             actionname: this.actionMicroflow,
-                            guids: [ this._contextObj.getGuid() ]
+                            guids: [ this._contextObj.getGuid() ],
+                            origin: this.mxform
                         },
-                        callback: function(obj) {
+                        callback: function() {
+                            //
                         },
                         error: function(error) {
-                            console.log(self.id + ": An error occurred while executing microflow: " + error.description);
+                            mx.ui.error("An error occurred while executing microflow " + this.actionMicroflow + " : " + error.description);
                         }
                     }, this);
                 });
@@ -86,9 +86,9 @@ define([
                     domClass.remove(this.counterNode, "NotificationCenter-hasnewmessages");
                 }
 
-                this.imgNode = mxui.dom.create("a", { class: "" }, this.counterNode);
+                this.imgNode = mxui.dom.create("a", {}, this.counterNode);
                 this.domNode.appendChild(this.imgNode);
-                dojo.attr(this.imgNode, "class", "");
+                // dojo.attr(this.imgNode, "class", "");
             } else if (this._notificationCount > 0) {
                 html.set(this.counterNode, this._notificationCount);
                 domClass.add(this.counterNode, "NotificationCenter-hasnewmessages");
@@ -99,22 +99,23 @@ define([
 
         _getNotificationCount: function() {
             // Fetch Notification count by microflow
-            var self = this;
+            // var self = this;
             if (this._contextObj) {
                 mx.data.action({
                     params: {
                         applyto: "selection",
                         actionname: this.counterMicroflow,
-                        guids: [ this._contextObj.getGuid() ]
+                        guids: [ this._contextObj.getGuid() ],
+                        origin: this.mxform
                     },
                     callback: function(count) {
-                        self._notificationCount = count;
-                        self._updateRendering();
+                        this._notificationCount = count;
+                        this._updateRendering();
                     },
                     error: function(error) {
-                        console.log(this.id + ": An error occurred while executing microflow: " + error.description);
+                        mx.ui.error("An error occurred while executing microflow " + this.actionMicroflow + " : " + error.description);
                     }
-                });
+                }, this);
             }
         },
 
