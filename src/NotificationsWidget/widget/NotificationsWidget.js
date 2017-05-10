@@ -52,21 +52,15 @@ define([
         _setupEvents: function() {
             this.connect(this.domNode, "click", function() {
                if (this._contextObj) { 
-                    mx.data.action({
-                        params: {
-                            applyto: "selection",
-                            actionname: this.actionMicroflow,
-                            guids: [ this._contextObj.getGuid() ],
-                            origin: this.mxform
-                        },
-                        // callback: function() {
-                        // },
+                    mx.ui.action(this.actionMicroflow, {
+                        context: this.mxcontext,
+                        origin: this.mxform,
                         error: function(error) {
-                            mx.ui.error("An error occurred while executing microflow " + this.actionMicroflow + " : " + error.description);
+                            mx.ui.error("An error occurred while executing microflow " + this.actionMicroflow + " : " + error.message);
                         }
-                    });
+                    }, this);
                }
-            }, this);
+            });
         },
 
         _updateCounter: function() {
@@ -99,23 +93,18 @@ define([
 
         _getNotificationCount: function() {
             // Fetch Notification count by microflow
-            var self = this;
             if (this._contextObj) {
-                mx.data.action({
-                    params: {
-                        applyto: "selection",
-                        actionname: this.counterMicroflow,
-                        guids: [ this._contextObj.getGuid() ],
-                        origin: this.mxform
-                    },
+                mx.ui.action(this.counterMicroflow, {
+                    context: this.mxcontext,
+                    origin: this.mxform,
                     callback: function(count) {
-                        self._notificationCount = count;
-                        self._updateRendering();
+                        this._notificationCount = count;
+                        this._updateRendering();
                     },
                     error: function(error) {
-                        mx.ui.error("An error occurred while executing microflow " + this.counterMicroflow + " : " + error.description);
+                        mx.ui.error("An error occurred while executing microflow " + this.counterMicroflow + " : " + error.message);
                     }
-                });
+                }, this);
             }
         },
 
