@@ -51,7 +51,7 @@ define([
 
         _setupEvents: function() {
             this.connect(this.domNode, "click", function() {
-               if (this._contextObj) { 
+                if (this._contextObj) {
                     mx.ui.action(this.actionMicroflow, {
                         context: this.mxcontext,
                         origin: this.mxform,
@@ -59,7 +59,7 @@ define([
                             mx.ui.error("An error occurred while executing microflow " + this.actionMicroflow + " : " + error.message);
                         }
                     }, this);
-               }
+                }
             });
         },
 
@@ -69,7 +69,7 @@ define([
 
         _updateRendering: function() {
             // Update Notification counter
-            if (this.counterNode == null) {
+            if (!this.counterNode) {
                 this.counterNode = mxui.dom.create("div", {
                     class: "NotificationCenter-counter"
                 });
