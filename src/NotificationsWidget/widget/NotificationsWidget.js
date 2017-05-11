@@ -3,14 +3,14 @@
     ========================
 
     @file      : NotificationsWidget.js
-    @version   : 0.2
+    @version   : 0.2.1
     @author    : Mansystems
     @license   : Apache 2
 
     Documentation
     ========================
     Describe your widget here.
-    @version: 0.2
+    @version: 0.2.1
     @author: Mansystems
 */
 
