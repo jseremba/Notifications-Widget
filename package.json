@@ -1,6 +1,6 @@
 {
   "name": "notifications-widget",
-  "version": "1.0.0",
+  "version": "0.2.1",
   "description": "Notifications Widget",
   "main": "index.js",
   "scripts": {
