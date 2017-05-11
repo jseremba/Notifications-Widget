@@ -40,7 +40,7 @@ define([
                         context: this.mxcontext,
                         origin: this.mxform,
                         error: function(error) {
-                            mx.ui.error("An error occurred while executing microflow " + this.actionMicroflow + " : " + error.message);
+                            window.mx.ui.error("An error occurred while executing microflow " + this.actionMicroflow + " : " + error.message);
                         }
                     }, this);
                 }
@@ -82,7 +82,7 @@ define([
                         this._updateRendering();
                     },
                     error: function(error) {
-                        mx.ui.error("An error occurred while executing microflow " + this.counterMicroflow + " : " + error.message);
+                        window.mx.ui.error("An error occurred while executing microflow " + this.counterMicroflow + " : " + error.message);
                     }
                 }, this);
             }
