@@ -9,13 +9,13 @@
         <property key="actionMicroflow" type="microflow" required="false">
             <caption>Action Microflow</caption>
             <category>Behavior</category>
-            <description>This microflow will be invoked when the user clicks on the Notification widget.</description>
+            <description>This microflow will be invoked when the user clicks on the Notification widget</description>
             <returnType type="Void"/>
         </property>	
         <property key="counterMicroflow" type="microflow" required="true">
             <caption>Counter microflow</caption>
             <category>Behavior</category>
-            <description>This microflow should return the amount of unread notifications.</description>
+            <description>This microflow should return the amount of unread notifications</description>
             <returnType type="Integer"/>
         </property>
 		<property key="tooltipCaption" type="translatableString">
@@ -23,6 +23,6 @@
             <category>Behavior</category>
             <description>The caption of the tooltip</description>
         </property>      
-	</properties>
+  </properties>
 </widget>
 

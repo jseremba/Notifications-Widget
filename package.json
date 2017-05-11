@@ -1,11 +1,4 @@
 {
-  "name": "notifications-widget",
-  "version": "0.2.1",
-  "description": "Notifications Widget",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://josephsseremba@bitbucket.org/josephsseremba/notifications-widget.git"
