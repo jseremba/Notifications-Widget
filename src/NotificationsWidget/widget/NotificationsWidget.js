@@ -42,7 +42,7 @@ define([
         update: function(mxObject, callback) {
             this._contextObject = mxObject;
             this._resetSubscriptions();
-            this._updateCounter();
+            this._getNotificationCount();
 
             if (callback) {
                 callback();
@@ -61,10 +61,6 @@ define([
                     }, this);
                 }
             });
-        },
-
-        _updateCounter: function() {
-            this._getNotificationCount();
         },
 
         _updateRendering: function() {
@@ -117,7 +113,7 @@ define([
             if (this._contextObject) {
                 this._handle = this.subscribe({
                     guid: this._contextObject.getGuid(),
-                    callback: this._updateCounter
+                    callback: this._getNotificationCount
                 });
             }
         }
