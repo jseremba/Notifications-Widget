@@ -1,17 +1,9 @@
-// Generated on 2017-05-08 using generator-mendix 1.3.7 :: git+https://github.com/mendix/generator-mendix.git
-/* jshint -W069*/
-/* global module*/
-
 "use strict";
 
 // In case you seem to have trouble starting Mendix through `grunt start-mendix`, you might have to set the path to the Mendix application.
 // If it works, leave MODELER_PATH at null
 var MODELER_PATH = null;
 var MODELER_ARGS = "/file:{path}";
-
-/** ******************************************************************************
- * Do not edit anything below, unless you know what you are doing
- ********************************************************************************/
 
 var path = require("path"),
     mendixApp = require("node-mendix-modeler-path"),
@@ -154,7 +146,7 @@ module.exports = function(grunt) {
                     grunt.log.error("\nPlease provide a valid version that is higher than 1.0.0. Current version: " + currentVersion);
                     done();
                 } else {
-                    res.package.clientModule[0][ "$" ][ "version" ] = version;
+                    res.package.clientModule[0].$.version = version;
                     pkg.version = version;
                     var xmlString = builder.buildObject(res);
                     grunt.file.write(PACKAGE_XML, xmlString);
