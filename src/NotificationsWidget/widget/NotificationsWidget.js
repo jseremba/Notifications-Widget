@@ -1,19 +1,3 @@
-/*
-    NotificationsWidget
-    ========================
-
-    @file      : NotificationsWidget.js
-    @version   : 0.2.1
-    @author    : Mansystems
-    @license   : Apache 2
-
-    Documentation
-    ========================
-    Describe your widget here.
-    @version: 0.2.1
-    @author: Mansystems
-*/
-
 define([
     "dojo/_base/declare",
     "mxui/widget/_WidgetBase",
@@ -52,7 +36,7 @@ define([
         _setupEvents: function() {
             this.connect(this.domNode, "click", function() {
                 if (this._contextObject) {
-                    mx.ui.action(this.actionMicroflow, {
+                    window.mx.ui.action(this.actionMicroflow, {
                         context: this.mxcontext,
                         origin: this.mxform,
                         error: function(error) {
@@ -90,7 +74,7 @@ define([
         _getNotificationCount: function() {
             // Fetch Notification count by microflow
             if (this._contextObject) {
-                mx.ui.action(this.counterMicroflow, {
+                window.mx.ui.action(this.counterMicroflow, {
                     context: this.mxcontext,
                     origin: this.mxform,
                     callback: function(count) {
