@@ -31,7 +31,7 @@ define([
         // Internal variables
         _notificationCount: null,
         _handle: null,
-        _contextObj: null,
+        _contextObject: null,
         _objProperty: null,
 
         postCreate: function() {
@@ -40,7 +40,7 @@ define([
         },
 
         update: function(mxObject, callback) {
-            this._contextObj = mxObject;
+            this._contextObject = mxObject;
             this._resetSubscriptions();
             this._updateCounter();
 
@@ -51,7 +51,7 @@ define([
 
         _setupEvents: function() {
             this.connect(this.domNode, "click", function() {
-                if (this._contextObj) {
+                if (this._contextObject) {
                     mx.ui.action(this.actionMicroflow, {
                         context: this.mxcontext,
                         origin: this.mxform,
@@ -93,7 +93,7 @@ define([
 
         _getNotificationCount: function() {
             // Fetch Notification count by microflow
-            if (this._contextObj) {
+            if (this._contextObject) {
                 mx.ui.action(this.counterMicroflow, {
                     context: this.mxcontext,
                     origin: this.mxform,
@@ -114,9 +114,9 @@ define([
                 this._handle = null;
             }
 
-            if (this._contextObj) {
+            if (this._contextObject) {
                 this._handle = this.subscribe({
-                    guid: this._contextObj.getGuid(),
+                    guid: this._contextObject.getGuid(),
                     callback: this._updateCounter
                 });
             }
