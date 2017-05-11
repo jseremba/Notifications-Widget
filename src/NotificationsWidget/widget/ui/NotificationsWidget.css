@@ -16,23 +16,6 @@
 }
 .NotificationCenter-counter {
     display: none;
-/*
-    display: inline-block;
-    color: white;
-    right: 5px;
-    bottom: 15px;
-    font-weight: bold;
-    min-width: 16px;
-    height: 16px;
-    line-height: 16px;
-    font-size: 10px;
-    text-align: center;
-    position: relative;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    border-radius: 8px;
-    background: #999;
-*/
 }
 .NotificationCenter-hasnewmessages {
     -moz-box-shadow: 0 1px 1px #196BA2;
