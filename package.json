@@ -1,4 +1,6 @@
 {
+  "version": "0.2.1",
+  "description": "Notifications Widget",
   "repository": {
     "type": "git",
     "url": "git+https://josephsseremba@bitbucket.org/josephsseremba/notifications-widget.git"
